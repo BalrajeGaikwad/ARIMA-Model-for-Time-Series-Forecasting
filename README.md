@@ -46,3 +46,25 @@ If a time series, has seasonal patterns, then we need to add seasonal terms and 
 
   3.3 The meaning of q
 - q is the order of the Moving Average (MA) term. It refers to the number of lagged forecast errors that should go into the ARIMA Model.
+- 
+
+4.1 AR model¶
+- An Auto Regressive (AR) model is one where Yt depends only on its own lags.
+- That is, Yt is a function of the lags of Yt. It is depicted by the following equation
+
+4.2 MA model¶
+- Likewise a Moving Average (MA) model is one where Yt depends only on the lagged forecast errors. It is depicted by the following equation -
+
+4.3 ARIMA model¶
+- An ARIMA model is one where the time series was differenced at least once to make it stationary and we combine the AR and the MA terms. So the equation of an ARIMA model becomes :
+
+5. How to find the order of differencing (d) in ARIMA model
+
+- As stated earlier, the purpose of differencing is to make the time series stationary. But we should be careful to not over-difference the series. An over differenced series may still be stationary, which in turn will affect the model parameters.
+- So we should determine the right order of differencing. The right order of differencing is the minimum differencing required to get a near-stationary series which roams around a defined mean and the ACF plot reaches to zero fairly quick.
+- If the autocorrelations are positive for many number of lags (10 or more), then the series needs further differencing. On the other hand, if the lag 1 autocorrelation itself is too negative, then the series is probably over-differenced.
+- If we can’t really decide between two orders of differencing, then we go with the order that gives the least standard deviation in the differenced series.
+- Now, we will explain these concepts with the help of an example as follows:-
+- First, I will check if the series is stationary using the Augmented Dickey Fuller test (ADF Test), from the statsmodels package. The reason being is that we need differencing only if the series is non-stationary. Else, no differencing is needed, that is, d=0.
+- The null hypothesis (Ho) of the ADF test is that the time series is non-stationary. So, if the p-value of the test is less than the significance level (0.05) then we reject the null hypothesis and infer that the time series is indeed stationary.
+- So, in our case, if P Value > 0.05 we go ahead with finding the order of differencing.
